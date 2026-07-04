@@ -1,13 +1,9 @@
-function ajustarSensibilidadeVolumeGol (sensibilidade: number, volume: number) {
-    music.setVolume(volume)
-    input.setSoundThreshold(SoundThreshold.Loud, sensibilidade)
-}
 input.onButtonPressed(Button.A, function () {
     alternarSensibilidadeModo = 1 - alternarSensibilidadeModo
     if (alternarSensibilidadeModo == 0) {
-        ajustarSensibilidadeVolumeGol(255, 255)
+        ajustarModo(255, 255)
     } else {
-        ajustarSensibilidadeVolumeGol(180, 60)
+        ajustarModo(180, 60)
     }
     basic.pause(200)
 })
@@ -26,7 +22,7 @@ function tocarLista (lista: number[]) {
 input.onSound(DetectedSound.Loud, function () {
     if (repetir == 0) {
         repetir = 1
-        pins.servoWritePin(AnalogPin.P8, 270)
+        pins.servoWritePin(AnalogPin.P8, 180)
         while (repetir == 1) {
             basic.showIcon(IconNames.Heart)
             // Frase 1
@@ -103,6 +99,10 @@ function alterarCorLedRgb (redValor: number, greenValor: number, blueValor: numb
 }
 function pausa () {
     music.rest(music.beat(BeatFraction.Quarter))
+}
+function ajustarModo (sensibilidade: number, volume: number) {
+    music.setVolume(volume)
+    input.setSoundThreshold(SoundThreshold.Loud, sensibilidade)
 }
 let repetir = 0
 let alternarSensibilidadeModo = 0
